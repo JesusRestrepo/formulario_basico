@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
+import axios from 'axios'
 
 const RegistrarBase = () => {
 
@@ -19,6 +20,22 @@ const RegistrarBase = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         console.log("Nombre base: " + datos.NombreBase);
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/base',
+            headers: { 'Content-Type': 'application/json' },
+            data:{
+                NombreBase: datos.NombreBase
+            },
+        };
+        await axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }
 
   return (

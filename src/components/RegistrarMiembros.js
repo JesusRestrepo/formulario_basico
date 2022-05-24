@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
+import axios from 'axios'
 
 const RegistrarMiembros = () => {
 
@@ -21,6 +22,24 @@ const RegistrarMiembros = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         console.log("Codigo miembro: " + datos.CodigoMiembros + " Cargo: " + datos.Cargo + " Nombre miembro: " + datos.NombreMiembros);
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/miembros',
+            headers: { 'Content-Type': 'application/json' },
+            data:{
+                CodigoMiembros: datos.CodigoMiembros,
+                Cargo: datos.Cargo,
+                NombreMiembros: datos.NombreMiembros
+            },
+        };
+        await axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }
 
   return (

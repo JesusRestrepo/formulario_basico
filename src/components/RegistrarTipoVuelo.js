@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
+import axios from 'axios'
 
 const RegistrarTipoVuelo = () => {
 
@@ -19,6 +20,22 @@ const RegistrarTipoVuelo = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         console.log("tipo de vuelo: " + datos.TipoVuelo);
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:5000/tipo-vuelo',
+            headers: { 'Content-Type': 'application/json' },
+            data:{
+                TipoVuelo: datos.TipoVuelo
+            },
+        };
+        await axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }
 
   return (

@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
+import axios from 'axios'
 
 const RegistrarFecha = () => {
 
@@ -206,6 +207,25 @@ const RegistrarFecha = () => {
         console.log("Mes: " + mes);
         console.log("Año: " + datos.año);
         console.log("Franja horaria: " + franjas);
+        const options = {
+          method: 'POST',
+          url: 'http://localhost:5000/fecha',
+          headers: { 'Content-Type': 'application/json' },
+          data:{
+              dia: dia,
+              mes: mes,
+              año: datos.año,
+              franjas: franjas
+          },
+      };
+      await axios
+          .request(options)
+          .then(function (response) {
+              console.log(response.data);
+          })
+          .catch(function (error) {
+              console.error(error);
+          });
     }
 
   return (
